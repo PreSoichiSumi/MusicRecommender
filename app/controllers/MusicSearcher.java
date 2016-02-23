@@ -15,24 +15,35 @@ import com.google.gson.Gson;
 public class MusicSearcher extends Controller{
 	private static String clientID  = "9474304-62797A30715D3B296EFB736240C6925E"; // Put your clientID here.
     private static String clientTag = "25991130737085962-F25002E58FCF3FB570826AC4E0100C2F"; // Put your clientTag here.
-    public Result searchMusic(String musicName) {
+
+    public Result searchMusicFromMusicName(String musicName) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
-	    	GracenoteMetadata results = api.searchTrack("","",musicName);
-
-	    	List<Map<String,String>> res=new ArrayList<>();
-	    	for(Map<String, Object> o:results.getAlbums()){
-	    		Map<String,String> tmp=new HashMap<>();
-	    		tmp.put("musicName", (String)o.get("track_title"));
-	    		tmp.put("artistName", (String)o.get("album_artist_name"));
-	    		res.add(tmp);
-	    	}
-
-	    	return ok(new Gson().toJson(res));
+	    	return ok(convertResToJson(api.searchTrack("","",musicName)));
     	}catch(Exception e){
     		e.printStackTrace();
     		return internalServerError();
     	}
+	}
 
+    public Result searchMusicFromArtistName(String artistName) {
+    	try{
+	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
+	    	return ok(convertResToJson( api.searchTrack("","",artistName)));
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return internalServerError();
+    	}
     }
+
+	private String convertResToJson(GracenoteMetadata data){
+		List<Map<String,String>> res=new ArrayList<>();
+    	for(Map<String, Object> o:data.getAlbums()){
+    		Map<String,String> tmp=new HashMap<>();
+    		tmp.put("musicName", (String)o.get("track_title"));
+    		tmp.put("artistName", (String)o.get("album_artist_name"));
+    		res.add(tmp);
+    	}
+    	return new Gson().toJson(res);
+	}
 }

@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index()
 
 #
-GET		/searchMusic				controllers.MusicSearcher.searchMusic(musicName:String)
-
+GET		/searchMusicTitle				controllers.MusicSearcher.searchMusicFromMusicName(musicName:String)
+GET		/searchMusicArtist				controllers.MusicSearcher.searchMusicFromArtistName(artistName:String)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
