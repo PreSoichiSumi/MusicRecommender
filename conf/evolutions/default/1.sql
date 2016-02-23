@@ -31,13 +31,13 @@ alter table account_music add constraint fk_account_music_music_02 foreign key (
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists account;
+drop table account;
 
-drop table if exists account_music;
+drop table account_music;
 
-drop table if exists music;
+drop table music;
 
-SET REFERENTIAL_INTEGRITY TRUE;
+SET FOREIGN_KEY_CHECKS=1;
 
