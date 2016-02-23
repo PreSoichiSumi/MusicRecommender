@@ -20,7 +20,7 @@ import org.xml.sax.InputSource;
 
 public class GracenoteWebAPI
 {
-    // Members
+    // Membersa
     private String _clientID  = "";
     private String _clientTag = "";
     private String _userID    = "";
@@ -82,6 +82,25 @@ public class GracenoteWebAPI
         if (this._userID.equals("")) { this.register(); }
 
         String body = this._constructQueryBody(artistName, albumTitle, trackTitle);
+        String data = this._constructQueryRequest(body);
+        return this._execute(data);
+    }
+   /**
+    * 範囲指定可能楽曲検索メソッド
+    * @author sumi
+    * @param artistName
+    * @param albumTitle
+    * @param trackTitle
+    * @param pageLength
+    * @param pageNumber
+    * @return
+    */
+    public GracenoteMetadata searchTrackRanged(String artistName, String albumTitle, String trackTitle, Integer pageLength, Integer pageNumber)//pageNumber...0 start
+    {
+        // Sanity check
+        if (this._userID.equals("")) { this.register(); }
+
+        String body = this._constructQueryBodyRanged(artistName, albumTitle, trackTitle,pageLength,pageNumber);
         String data = this._constructQueryRequest(body);
         return this._execute(data);
     }
@@ -172,7 +191,61 @@ public class GracenoteWebAPI
 
         return null;
     }
+    /**
+     * @author sumi
+     * @param artist
+     * @param album
+     * @param track
+     * @param pageLength
+     * @param pageNumber
+     * @return
+     */
+    protected String _constructQueryBodyRanged(String artist, String album, String track, int pageLength, int pageNumber) { return this._constructQueryBodyRanged(artist, album, track, "", "ALBUM_SEARCH",pageLength,pageNumber); }
+    protected String _constructQueryBodyRanged(String artist, String album, String track, String gn_id, String command, int pageLength, int pageNumber)
+    {
+        String body = "";
 
+        // If a fetch scenario, user the Gracenote ID.
+        if (command.equals("ALBUM_FETCH"))
+        {
+            body += "<GN_ID>" + gn_id + "</GN_ID>";
+
+            // Include extended data.
+            body += "<OPTION>"
+                         + "<PARAMETER>SELECT_EXTENDED</PARAMETER>"
+                         + "<VALUE>COVER,REVIEW,ARTIST_BIOGRAPHY,ARTIST_IMAGE,ARTIST_OET,MOOD,TEMPO</VALUE>"
+                    + "</OPTION>";
+
+            // Include more detailed responses.
+            body += "<OPTION>"
+                         + "<PARAMETER>SELECT_DETAIL</PARAMETER>"
+                         + "<VALUE>GENRE:3LEVEL,MOOD:2LEVEL,TEMPO:3LEVEL,ARTIST_ORIGIN:4LEVEL,ARTIST_ERA:2LEVEL,ARTIST_TYPE:2LEVEL</VALUE>"
+                     + "</OPTION>";
+
+            // Only want the thumbnail cover art for now (LARGE,XLARGE,SMALL,MEDIUM,THUMBNAIL)
+            body += "<OPTION>"
+                         + "<PARAMETER>COVER_SIZE</PARAMETER>"
+                         + "<VALUE>MEDIUM</VALUE>"
+                     + "</OPTION>";
+        }
+        // Otherwise, just do a search.
+        else
+        {
+            // Only want the single best match.
+            //body += "<MODE>SINGLE_BEST</MODE>";
+
+            // If a search scenario, then need the text input
+            if (!artist.equals("")) { body += "<TEXT TYPE=\"ARTIST\">" + artist + "</TEXT>"; }
+            if (!track.equals(""))  { body += "<TEXT TYPE=\"TRACK_TITLE\">" + track + "</TEXT>"; }
+            if (!album.equals(""))  { body += "<TEXT TYPE=\"ALBUM_TITLE\">" + album + "</TEXT>"; }
+           body+="<RANGE>"
+        		   +"<START>"+Integer.toString(pageNumber*pageLength+1)+"</START>"
+        		   +"<END>"+Integer.toString(pageNumber*pageLength+pageLength)+"</END>"
+        		   +"</RANGE>";
+        }
+
+        return body;
+    }
     // This will construct the Gracenote query, adding in the authentication header, etc.
     protected String _constructQueryRequest(String body) { return this._constructQueryRequest(body, "ALBUM_SEARCH"); }
     protected String _constructQueryRequest(String body, String command)
