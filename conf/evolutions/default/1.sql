@@ -37,8 +37,6 @@ create table sung_music (
   constraint pk_sung_music primary key (sung_id))
 ;
 
-create sequence now_room_seq;
-
 alter table sung_music add constraint fk_sung_music_account_1 foreign key (account_account_id) references account (account_id) on delete restrict on update restrict;
 create index ix_sung_music_account_1 on sung_music (account_account_id);
 alter table sung_music add constraint fk_sung_music_room_2 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
@@ -52,19 +50,17 @@ create index ix_room_name_5 on room(name);
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists account;
+drop table account;
 
-drop table if exists music;
+drop table music;
 
-drop table if exists now_room;
+drop table now_room;
 
-drop table if exists room;
+drop table room;
 
-drop table if exists sung_music;
+drop table sung_music;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists now_room_seq;
+SET FOREIGN_KEY_CHECKS=1;
 
