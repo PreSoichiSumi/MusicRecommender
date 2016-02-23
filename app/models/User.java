@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class User extends Model{
@@ -16,6 +17,7 @@ public class User extends Model{
 	
 
 	@ManyToMany(cascade=CascadeType.ALL)
+	@JsonManagedReference
 	public List<Music> sung;
 	
 	public User(){

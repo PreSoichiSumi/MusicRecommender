@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Music extends Model{
@@ -19,6 +21,7 @@ public class Music extends Model{
 	
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="sung", fetch=FetchType.EAGER)
+	@JsonBackReference
 	public List<User> user;
 
 	
