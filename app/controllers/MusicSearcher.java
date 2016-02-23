@@ -25,10 +25,10 @@ public class MusicSearcher extends Controller{
     		return internalServerError();
     	}
 	}
-    public Result searchMusicFromMusicNameRanged(String musicName) {
+    public Result searchMusicFromMusicNameRanged(String musicName, Integer pageLength, Integer pageNumber) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
-	    	return ok(convertResToJson(api.searchTrack("","",musicName)));
+	    	return ok( convertResToJson( api.searchTrackRanged("","",musicName,pageLength,pageNumber) ) );
     	}catch(Exception e){
     		e.printStackTrace();
     		return internalServerError();
@@ -38,12 +38,21 @@ public class MusicSearcher extends Controller{
     public Result searchMusicFromArtistName(String artistName) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
-	    	return ok(convertResToJson( api.searchTrack("","",artistName)));
+	    	return ok(convertResToJson( api.searchTrack(artistName,"","")));
     	}catch(Exception e){
     		e.printStackTrace();
     		return internalServerError();
     	}
     }
+    public Result searchMusicFromArtistNameRanged(String artistName, Integer pageLength, Integer pageNumber) {
+    	try{
+	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
+	    	return ok( convertResToJson( api.searchTrackRanged(artistName,"","",pageLength,pageNumber) ) );
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return internalServerError();
+    	}
+	}
 
 	private String convertResToJson(GracenoteMetadata data){
 		List<Map<String,String>> res=new ArrayList<>();
