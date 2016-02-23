@@ -25,6 +25,15 @@ public class MusicSearcher extends Controller{
     		return internalServerError();
     	}
 	}
+    public Result searchMusicFromMusicNameRanged(String musicName) {
+    	try{
+	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
+	    	return ok(convertResToJson(api.searchTrack("","",musicName)));
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return internalServerError();
+    	}
+	}
 
     public Result searchMusicFromArtistName(String artistName) {
     	try{
