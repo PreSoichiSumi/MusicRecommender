@@ -9,7 +9,8 @@ scalaVersion := "2.11.6"
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
-  javaWs
+  javaWs,
+  "com.google.code.gson" % "gson" % "2.2"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
@@ -18,6 +19,6 @@ routesGenerator := InjectedRoutesGenerator
 
 EclipseKeys.preTasks := Seq(compile in Compile)
 //EclipseKeys.projectFlavor := EclipseProjectFlavor.Java           // Java project. Don't expect Scala IDE
-//EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)  // Use .class files instead of generated .scala files for views and routes 
+//EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)  // Use .class files instead of generated .scala files for views and routes
 
 
