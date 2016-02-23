@@ -6,17 +6,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Account;
 import play.mvc.Controller;
 import play.mvc.Result;
+import util.recommend.MusicRecommender;
 
-public class MusicRecommender extends Controller { 
-    public Result recommend(Long id) {
+public class RecommendController extends Controller { 
+    public MusicRecommender recommender;
+	
+	public Result recommend(Long id) {
     	Account user = Account.find.byId(id);
     	if(user == null){
     		return notFound();
     	}
     	ObjectMapper om = new ObjectMapper();
-    	JsonNode n = om.valueToTree(om);
+    	JsonNode n = om.valueToTree(recommender.recommend(user));
     	
         return ok(n);
     }
-
 }
