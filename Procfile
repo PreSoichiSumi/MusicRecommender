@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/play-scala-demo -Dhttp.port=${PORT} -DapplyEvolutions.default=true
+web: target/universal/stage/bin/musicrecommender-Dhttp.port=${PORT} -DapplyEvolutions.default=true
