@@ -8,10 +8,10 @@ import com.avaje.ebean.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class User extends Model{
+public class Account extends Model{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long user_id;
+	public Long account_id;
 	
 	public String name;
 	
@@ -20,16 +20,16 @@ public class User extends Model{
 	@JsonManagedReference
 	public List<Music> sung;
 	
-	public User(){
+	public Account(){
 		
 	}
 
-	public User(Long user_id, String name, List<Music> sung) {
-		this.user_id = user_id;
+	public Account(Long user_id, String name, List<Music> sung) {
+		this.account_id = user_id;
 		this.name = name;
 		this.sung = sung;
 	}
 	
 	
-	public static Finder<Long, User> find = new Finder<>(User.class);
+	public static Finder<Long, Account> find = new Finder<>(Account.class);
 }

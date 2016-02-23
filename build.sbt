@@ -10,9 +10,12 @@ libraryDependencies ++= Seq(
   javaJdbc,
   cache,
   javaWs,
-  "com.google.code.gson" % "gson" % "2.2"
+  "com.google.code.gson" % "gson" % "2.2",
+  "com.google.inject" % "guice" % "3.0",
+  "org.postgresql" % "postgresql" % "9.4-1201-jdbc4",
+  "com.typesafe.play" %% "play-slick" % "1.1.1",
+	"com.typesafe.play" %% "play-slick-evolutions" % "1.1.1"
 )
-libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.

@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table account (
+  account_id                bigint auto_increment not null,
+  name                      varchar(255),
+  constraint pk_account primary key (account_id))
+;
+
 create table music (
   music_id                  bigint auto_increment not null,
   artist                    varchar(255),
@@ -10,34 +16,28 @@ create table music (
   constraint pk_music primary key (music_id))
 ;
 
-create table user (
-  user_id                   bigint auto_increment not null,
-  name                      varchar(255),
-  constraint pk_user primary key (user_id))
-;
 
-
-create table user_music (
-  user_user_id                   bigint not null,
+create table account_music (
+  account_account_id             bigint not null,
   music_music_id                 bigint not null,
-  constraint pk_user_music primary key (user_user_id, music_music_id))
+  constraint pk_account_music primary key (account_account_id, music_music_id))
 ;
 
 
 
-alter table user_music add constraint fk_user_music_user_01 foreign key (user_user_id) references user (user_id) on delete restrict on update restrict;
+alter table account_music add constraint fk_account_music_account_01 foreign key (account_account_id) references account (account_id) on delete restrict on update restrict;
 
-alter table user_music add constraint fk_user_music_music_02 foreign key (music_music_id) references music (music_id) on delete restrict on update restrict;
+alter table account_music add constraint fk_account_music_music_02 foreign key (music_music_id) references music (music_id) on delete restrict on update restrict;
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists account;
+
+drop table if exists account_music;
+
 drop table if exists music;
-
-drop table if exists user_music;
-
-drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 

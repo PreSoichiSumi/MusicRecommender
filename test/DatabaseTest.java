@@ -15,12 +15,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import models.Music;
-import models.User;
+import models.Account;
 
 public class DatabaseTest {
 
-	private User u1;
-	private User u2;
+	private Account u1;
+	private Account u2;
 	private Music music1;
 	private Music music2;
 	private Music music3;
@@ -53,8 +53,8 @@ public class DatabaseTest {
 		l2.add(music3);
 	
 		
-		u1 = new User(1l, "Alice", /*l1);//*/new ArrayList<>());
-		u2 = new User(2l, "Bob", /*l2);//*/ new ArrayList<>());
+		u1 = new Account(1l, "Alice", /*l1);//*/new ArrayList<>());
+		u2 = new Account(2l, "Bob", /*l2);//*/ new ArrayList<>());
 		u1.save();
 		u2.save();
 		
@@ -69,13 +69,13 @@ public class DatabaseTest {
 
 	@Test
 	public void test() {
-		for(User u : User.find.all()){
-			System.out.println(u.user_id);
+		for(Account u : Account.find.all()){
+			System.out.println(u.account_id);
 		}
 		
-		User uu = User.find.byId(1l);
-		assertThat(uu.user_id,
-				is(u1.user_id));
+		Account uu = Account.find.byId(1l);
+		assertThat(uu.account_id,
+				is(u1.account_id));
 		assertThat(uu.name, is(u1.name));
 		assertThat(uu.sung.get(0).music_id, 
 				is(u1.sung.get(0).music_id));
@@ -83,8 +83,8 @@ public class DatabaseTest {
 				is(u1.sung.get(1).music_id));
 		
 
-		uu = User.find.byId(2l);
-		assertThat(uu.user_id, is(u2.user_id));
+		uu = Account.find.byId(2l);
+		assertThat(uu.account_id, is(u2.account_id));
 		assertThat(uu.name, is(u2.name));
 		assertThat(uu.sung.get(0).music_id, is(u2.sung.get(0).music_id));
 		assertThat(uu.sung.get(1).music_id, is(u2.sung.get(1).music_id));

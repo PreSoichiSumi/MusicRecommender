@@ -22,7 +22,7 @@ public class Music extends Model{
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="sung", fetch=FetchType.EAGER)
 	@JsonBackReference
-	public List<User> user;
+	public List<Account> account;
 
 	
 	public Music(){}
