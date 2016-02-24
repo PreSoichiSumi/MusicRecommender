@@ -21,7 +21,8 @@ public class Account extends Model{
 
 	public String name;
 
-	public Long roomId;
+	@JsonIgnore
+	public Long room_id;
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="account", fetch=FetchType.LAZY)
 	@JsonIgnore

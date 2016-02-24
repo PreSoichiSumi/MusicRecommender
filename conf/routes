@@ -20,6 +20,9 @@ GET		/sungMusic						controllers.MusicRegister.registerGet(account_id:Long, musi
 POST	/account						controllers.AccountController.post()
 GET		/account						controllers.AccountController.get(name: String)
 
+GET		/room/in						controllers.RoomInOut.in(account_id:Long, room_name:String)
+GET		/room/out						controllers.RoomInOut.out(account_id:Long) 
+
 GET		/searchMusicTitleRanged			controllers.MusicSearcher.searchMusicFromMusicNameRanged(musicName:String, pageLength:Integer, pageNumber:Integer)
 GET		/searchMusicArtistRanged			controllers.MusicSearcher.searchMusicFromArtistNameRanged(artistName:String, pageLength:Integer, pageNumber:Integer)
 
