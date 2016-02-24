@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Account extends Model{
@@ -15,6 +16,7 @@ public class Account extends Model{
 	public String name;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="account", fetch=FetchType.LAZY)
+	@JsonIgnore
 	public List<SungMusic> sung;
 	
 	public Account(){
