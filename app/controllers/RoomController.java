@@ -10,8 +10,8 @@ import com.avaje.ebean.ExpressionList;
 
 public class RoomController extends Controller{
 	public Result createRoom(String roomName, Long userID){
-		ExpressionList<NowRoom> results = NowRoom.find.where().eq("roomName", roomName);
-    	if(results != null){
+		int rowCnt = NowRoom.find.where().eq("room_name", roomName).findRowCount();
+    	if(rowCnt != 0){
     		return badRequest();
     	}
     	Room roomTmp=new Room(0L, roomName);
