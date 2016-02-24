@@ -10,7 +10,11 @@ import play.mvc.Result;
 import util.GracenoteMetadata;
 import util.GracenoteWebAPI;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+
+import models.Music;
 
 public class MusicSearcher extends Controller{
 	private static String clientID  = "9474304-62797A30715D3B296EFB736240C6925E"; // Put your clientID here.
@@ -54,14 +58,24 @@ public class MusicSearcher extends Controller{
     	}
 	}
 
-	private String convertResToJson(GracenoteMetadata data){
-		List<Map<String,String>> res=new ArrayList<>();
+	private JsonNode convertResToJson(GracenoteMetadata data){
+		List<Music> res=new ArrayList<>();
     	for(Map<String, Object> o:data.getAlbums()){
-    		Map<String,String> tmp=new HashMap<>();
-    		tmp.put("music_name", (String)o.get("track_title"));
-    		tmp.put("artist_name", (String)o.get("album_artist_name"));
-    		res.add(tmp);
+    		res.add(getMusic((String)o.get("album_artist_name"), (String)o.get("track_title")));
     	}
-    	return new Gson().toJson(res);
+    	ObjectMapper om = new ObjectMapper();
+    	return om.valueToTree(res);
+	}
+	
+	private Music getMusic(String artist, String title){
+		List<Music> list = Music.find.where().eq("title", title).eq("artist", artist).findList();
+		if(list.size() >= 1){
+			return list.get(0);
+		}else{
+			Music music = new Music(0l, artist, title);
+			music.save();
+			return music;
+		}
+		
 	}
 }
