@@ -22,7 +22,7 @@ public class RoomController extends Controller{
     	if(accountTmp==null)
     		return internalServerError("userId is missing when creating room");
 
-    	accountTmp.roomId=roomTmp.room_id;
+    	accountTmp.room_id=roomTmp.room_id;
     	accountTmp.update();
 
         return ok();
