@@ -14,10 +14,11 @@ GET		/recommend						controllers.RecommendController.recommend(id: Long)
 
 #account_id:Long, music_id:Long
 POST	/sungMusic						controllers.MusicRegister.register()
+GET		/sungMusic						controllers.MusicRegister.registerGet(account_id:Long, music_id:Long)
 
 #name:String
 POST	/account						controllers.AccountController.post()
-GET		/account						controllers.AccountController.get(id: Long)
+GET		/account						controllers.AccountController.get(name: String)
 
 GET		/searchMusicTitleRanged			controllers.MusicSearcher.searchMusicFromMusicNameRanged(musicName:String, pageLength:Integer, pageNumber:Integer)
 GET		/searchMusicArtistRanged			controllers.MusicSearcher.searchMusicFromArtistNameRanged(artistName:String, pageLength:Integer, pageNumber:Integer)

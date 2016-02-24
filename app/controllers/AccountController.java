@@ -21,6 +21,15 @@ public class AccountController extends Controller {
 		return ok(jn);
 	}
 	
+	public Result get(String name){
+		Account ac = new Account(0l, name);
+		ac.save();
+		ObjectMapper om = new ObjectMapper();
+		JsonNode jn = om.valueToTree(ac);
+		return ok(jn);
+	}
+	
+	/*
 	public Result get(Long id){
 		Account ac = Account.find.byId(id);
 		if(ac == null) notFound();
@@ -28,4 +37,5 @@ public class AccountController extends Controller {
 		JsonNode jn = om.valueToTree(ac);
 		return ok(jn);
 	}
+	*/
 }
