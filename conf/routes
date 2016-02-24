@@ -12,6 +12,8 @@ GET		/searchMusicArtist				controllers.MusicSearcher.searchMusicFromArtistName(a
 
 GET		/recommend						controllers.RecommendController.recommend(id: Long)
 
+POST	/sungMusic						controllers.MusicRegister.register()
+
 GET		/searchMusicTitleRanged			controllers.MusicSearcher.searchMusicFromMusicNameRanged(musicName:String, pageLength:Integer, pageNumber:Integer)
 GET		/searchMusicArtistRanged			controllers.MusicSearcher.searchMusicFromArtistNameRanged(artistName:String, pageLength:Integer, pageNumber:Integer)
 
