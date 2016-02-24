@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Account extends Model{
@@ -23,6 +24,7 @@ public class Account extends Model{
 	public Long roomId;
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="account", fetch=FetchType.LAZY)
+	@JsonIgnore
 	public List<SungMusic> sung;
 
 	public Account(){
