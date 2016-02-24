@@ -58,8 +58,8 @@ public class MusicSearcher extends Controller{
 		List<Map<String,String>> res=new ArrayList<>();
     	for(Map<String, Object> o:data.getAlbums()){
     		Map<String,String> tmp=new HashMap<>();
-    		tmp.put("musicName", (String)o.get("track_title"));
-    		tmp.put("artistName", (String)o.get("album_artist_name"));
+    		tmp.put("music_name", (String)o.get("track_title"));
+    		tmp.put("artist_name", (String)o.get("album_artist_name"));
     		res.add(tmp);
     	}
     	return new Gson().toJson(res);
