@@ -10,7 +10,7 @@ GET		/searchMusicTitle				controllers.MusicSearcher.searchMusicFromMusicName(mus
 GET		/searchMusicArtist				controllers.MusicSearcher.searchMusicFromArtistName(artistName:String)
 
 
-GET		/recommend						controllers.MusicRecommender.recommend(id: Long)
+GET		/recommend						controllers.RecommendController.recommend(id: Long)
 
 GET		/searchMusicTitleRanged			controllers.MusicSearcher.searchMusicFromMusicNameRanged(musicName:String, pageLength:Integer, pageNumber:Integer)
 GET		/searchMusicArtistRanged			controllers.MusicSearcher.searchMusicFromArtistNameRanged(artistName:String, pageLength:Integer, pageNumber:Integer)
