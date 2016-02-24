@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.avaje.ebean.*;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Account extends Model{
@@ -15,19 +14,16 @@ public class Account extends Model{
 	
 	public String name;
 	
-
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JsonManagedReference
-	public List<Music> sung;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="account", fetch=FetchType.LAZY)
+	public List<SungMusic> sung;
 	
 	public Account(){
 		
 	}
 
-	public Account(Long user_id, String name, List<Music> sung) {
+	public Account(Long user_id, String name) {
 		this.account_id = user_id;
 		this.name = name;
-		this.sung = sung;
 	}
 	
 	
