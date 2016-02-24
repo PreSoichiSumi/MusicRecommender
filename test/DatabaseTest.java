@@ -10,11 +10,14 @@ import play.test.Helpers;
 import static play.test.Helpers.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import models.Music;
+import models.Room;
+import models.SungMusic;
 import models.Account;
 
 public class DatabaseTest {
@@ -26,6 +29,13 @@ public class DatabaseTest {
 	private Music music3;
 	private Music music4;
 	private Music music5;
+	private Room room1;
+	private Room room2;
+	private SungMusic sung1;
+	private SungMusic sung2;
+	private SungMusic sung3;
+	private SungMusic sung4;
+	
 	private ArrayList<Music> l1;
 	private ArrayList<Music> l2;
 
@@ -40,54 +50,47 @@ public class DatabaseTest {
 		music3 = new Music(3l,"C","c");
 		music3.save();
 		music4 = new Music(4l,"D","d");
-		//music4.save();
+		music4.save();
 		music5 = new Music(5l,"E","e");
-		//music5.save();
+		music5.save();
 
-		l1 = new ArrayList<>();
-		l1.add(music1);
-		l1.add(music2);
-
-		l2 = new ArrayList<>();
-		l2.add(music2);
-		l2.add(music3);
-	
 		
-		u1 = new Account(1l, "Alice", /*l1);//*/new ArrayList<>());
-		u2 = new Account(2l, "Bob", /*l2);//*/ new ArrayList<>());
+		u1 = new Account(1l, "Alice");
+		u2 = new Account(2l, "Bob");
 		u1.save();
 		u2.save();
 		
-		
-		u1.sung = l1;
-		u1.update();
-		
-		u2.sung = l2;
-		u2.update();
+		room1 = new Room(1l, "ROOM1");
+		room2 = new Room(2l, "ROOM2");
+		room1.save();
+		room2.save();
+
+		sung1 = new SungMusic(1l, u1, room1, music1);
+		sung2 = new SungMusic(2l, u1, room1, music2);
+		sung3 = new SungMusic(3l, u1, room2, music3);
+		sung4 = new SungMusic(4l, u2, room2, music1);
+		sung1.save();
+		sung2.save();
+		sung3.save();
+		sung4.save();
 		//Ebean.save(list);
 	}
 
 	@Test
 	public void test() {
-		for(Account u : Account.find.all()){
-			System.out.println(u.account_id);
-		}
-		
-		Account uu = Account.find.byId(1l);
-		assertThat(uu.account_id,
-				is(u1.account_id));
-		assertThat(uu.name, is(u1.name));
-		assertThat(uu.sung.get(0).music_id, 
-				is(u1.sung.get(0).music_id));
-		assertThat(uu.sung.get(1).music_id,
-				is(u1.sung.get(1).music_id));
-		
+		List<SungMusic> list = SungMusic.find.fetch("account").fetch("music").fetch("room").where("account_id=1").findList();
 
-		uu = Account.find.byId(2l);
-		assertThat(uu.account_id, is(u2.account_id));
-		assertThat(uu.name, is(u2.name));
-		assertThat(uu.sung.get(0).music_id, is(u2.sung.get(0).music_id));
-		assertThat(uu.sung.get(1).music_id, is(u2.sung.get(1).music_id));
+		assertThat("1", list.get(0).account.account_id, is(u1.account_id));
+		assertThat("2", list.get(0).room.room_id, is(room1.room_id));
+		assertThat("3", list.get(0).music.music_id, is(music1.music_id));
+		
+		assertThat("4", list.get(1).account.account_id, is(u1.account_id));
+		assertThat("5", list.get(1).room.room_id, is(room1.room_id));
+		assertThat("6", list.get(1).music.music_id, is(music2.music_id));
+		
+		assertThat("7", list.get(2).account.account_id, is(u1.account_id));
+		assertThat("8", list.get(2).room.room_id, is(room2.room_id));
+		assertThat("9", list.get(2).music.music_id, is(music3.music_id));
 	}
 
 }
