@@ -28,6 +28,11 @@ public class MusicRegister extends Controller {
 		music_id = Long.parseLong(mid);
 		
 		
+		return registerGet(account_id, music_id);
+	}
+	public Result registerGet(long account_id, long music_id){
+		
+		
 		Account ac = Account.find.byId(account_id);
 		if(ac == null) return badRequest("Invalid account_id : " + account_id);
 		Music music = Music.find.byId(music_id);
@@ -46,4 +51,5 @@ public class MusicRegister extends Controller {
 		
 		return ok();
 	}	
+
 }
