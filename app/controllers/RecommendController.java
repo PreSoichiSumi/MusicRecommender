@@ -7,9 +7,10 @@ import models.Account;
 import play.mvc.Controller;
 import play.mvc.Result;
 import util.recommend.MusicRecommender;
+import util.recommend.SimpleRecommender;
 
 public class RecommendController extends Controller { 
-    public MusicRecommender recommender;
+    public MusicRecommender recommender = new SimpleRecommender();
 	
 	public Result recommend(Long id) {
     	Account user = Account.find.byId(id);
