@@ -9,18 +9,24 @@ import play.mvc.Result;
 import com.avaje.ebean.ExpressionList;
 
 public class RoomController extends Controller{
+	/**
+	 * ルームの作成
+	 */
 	public Result createRoom(String roomName, Long userID){
 		int rowCnt = NowRoom.find.where().eq("room_name", roomName).findRowCount();
     	if(rowCnt != 0){
-    		return badRequest();
+    		return badRequest("'" + roomName + "' is exists.");
     	}
-    	Room roomTmp=new Room(0L, roomName);
-    	roomTmp.save();
-    	NowRoom nowRoomTmp=new NowRoom(roomTmp.room_id, roomName);
-    	nowRoomTmp.save();
+    	
     	Account accountTmp = Account.find.byId(userID);
     	if(accountTmp==null)
-    		return internalServerError("userId is missing when creating room");
+    		return badRequest("userId is missing when creating room");
+    	
+    	Room roomTmp=new Room(0L, roomName);
+    	roomTmp.save();
+    	
+    	NowRoom nowRoomTmp=new NowRoom(roomTmp.room_id, roomName);
+    	nowRoomTmp.save();
 
     	accountTmp.room_id=roomTmp.room_id;
     	accountTmp.update();
@@ -34,6 +40,7 @@ public class RoomController extends Controller{
 			return badRequest();
 		}
 		
+		//すでに他のルームに入っている場合、退出する
 		Long rid = account.room_id;
 		if(rid != null && rid != 0L){
 			account.room_id = null;
@@ -51,9 +58,9 @@ public class RoomController extends Controller{
 
 		if(rid != null && rid != 0L && Account.find.where().eq("room_id", rid).findRowCount() == 0){
 			//NowRoomからroomidを削除
-			NowRoom.find.where().eq("room_id", rid).findUnique().delete();
+			NowRoom nr = NowRoom.find.where().eq("room_id", rid).findUnique();
+			if(nr != null) nr.delete();
 		}
-		
 		
 		return ok();
 	}
@@ -81,8 +88,9 @@ public class RoomController extends Controller{
 		
 		
 		if(Account.find.where().eq("room_id", rid).findRowCount() == 0){
-			//NowRoomからroomidを削除
-			NowRoom.find.where().eq("room_id", rid).findUnique().delete();
+			//NowRoomからroomidを削除			
+			NowRoom nr = NowRoom.find.where().eq("room_id", rid).findUnique();
+			if(nr != null) nr.delete();
 		}
 		
 		return true;

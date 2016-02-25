@@ -16,7 +16,7 @@ public class RecommendController extends Controller {
 	public Result recommend(Long id) {
     	Account user = Account.find.byId(id);
     	if(user == null){
-    		return notFound();
+    		return badRequest();
     	}
     	ObjectMapper om = new ObjectMapper();
     	JsonNode n = om.valueToTree(recommender.recommend(user));

@@ -9,6 +9,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class AccountController extends Controller {
+	/**
+	 * POSTによるアカウント初期設定
+	 */
 	public Result post(){
 		DynamicForm param = new DynamicForm().bindFromRequest();
 		String name = param.get("name");
@@ -21,6 +24,9 @@ public class AccountController extends Controller {
 		return ok(jn);
 	}
 	
+	/**
+	 * GETによるアカウント初期設定
+	 */
 	public Result get(String name){
 		Account ac = new Account(0l, name);
 		ac.save();
