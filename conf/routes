@@ -6,8 +6,8 @@
 GET     / 	                        	controllers.Application.index()
 
 #
-GET		/search_music_title				controllers.MusicSearcher.searchMusicFromMusicName(music_name:String)
-GET		/search_music_artist			controllers.MusicSearcher.searchMusicFromArtistName(artist_name:String)
+GET		/search_music_title				controllers.MusicSearchController.searchMusicFromMusicName(music_name:String)
+GET		/search_music_artist			controllers.MusicSearchController.searchMusicFromArtistName(artist_name:String)
 
 
 GET		/recommend						controllers.RecommendController.recommend(id: Long)
