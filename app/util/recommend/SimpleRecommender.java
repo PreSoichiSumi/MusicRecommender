@@ -50,7 +50,7 @@ public class SimpleRecommender implements MusicRecommender {
 		int idx = 0;
 		for(MusicScore ms : scores){
 			returnMusic.add(ms.music);
-			System.out.print(ms.getScore() + " ");
+			System.out.print("(" + ms.getScore() + "," + ms.mysing + "," + ms.singers.size() + "," + ms.listeners.size()+")");
 			idx++;
 			//if(idx >= MAX_RESULT) break;
 		}
