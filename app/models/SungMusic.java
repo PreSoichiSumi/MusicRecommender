@@ -1,12 +1,8 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+import com.avaje.ebean.annotation.Index;
 import com.avaje.ebean.Model;
 
 @Entity
@@ -15,9 +11,11 @@ public class SungMusic extends Model{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long sung_id;
 	
+	@Index
 	@ManyToOne(fetch=FetchType.EAGER)
 	public Account account;
 	
+	@Index
 	@ManyToOne(fetch=FetchType.EAGER)
 	public Room room;
 	
