@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import models.Music;
 
-public class MusicSearcher extends Controller{
+public class MusicSearchController extends Controller{
 	private static String clientID  = "9474304-62797A30715D3B296EFB736240C6925E"; // Put your clientID here.
     private static String clientTag = "25991130737085962-F25002E58FCF3FB570826AC4E0100C2F"; // Put your clientTag here.
 
