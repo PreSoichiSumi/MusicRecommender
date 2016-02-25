@@ -2,77 +2,99 @@ package util.recommend;
 
 import java.util.*;
 
-import javax.persistence.Entity;
-
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Expr;
-import com.avaje.ebean.Query;
-import com.avaje.ebean.RawSql;
-import com.avaje.ebean.RawSqlBuilder;
 import com.avaje.ebean.SqlRow;
-import com.avaje.ebean.annotation.Sql;
 
-import models.Account;
-import models.Music;
-import models.SungMusic;
+import models.*;
 
+/**
+ * 同じルームにいる人の歌ったことのある曲・聞いたことのある曲に基づいて推薦曲を決定するRecommender
+ * score = WEIGHT_OWN * a + WEIGHT_SUNG * b / c + WEIGHT_LISTEND * d / c
+ * a : 自分が歌ったことのある曲の場合1、そうでなければ0
+ * b : 現在のルームの中でその曲を歌ったことのある人数
+ * c : 現在のルームの人数
+ * d : 現在のルームの中でその曲を聴いたことがある人数(歌った、もしくは過去のカラオケで同じルームの人が歌った)
+ */
 public class SimpleRecommender implements MusicRecommender {
-
+	private static final double WEIGHT_SUNG = 0.3;
+	private static final double WEIGHT_LISTEND = 0.2;
+	private static final double WEIGHT_OWN = 1.0 - WEIGHT_SUNG - WEIGHT_LISTEND;
+	
+	/** 推薦する曲の最大数 */
+	private static final int MAX_RESULT = 20;
+	
+	private static final String sql = 
+			"SELECT b.account_account_id, b.room_room_id, b.music_music_id, m.artist, m.title " +
+			"FROM sung_music b, music m " +
+			"WHERE b.music_music_id = m.music_id AND b.room_room_id IN ( " +
+				"SELECT c.room_room_id " +
+				"FROM sung_music c " +
+				"WHERE c.account_account_id IN (%s) " +
+			")";
+	
 	@Override
 	public List<Music> recommend(Account account) {
 		List<Account> accs = Account.find.where().eq("room_id", account.room_id).findList();
-		Set<Long> idlist = new HashSet<>(accs.size());
+		Set<Long> accountIdSet = new HashSet<>(accs.size());
 		
 		for(Account a : accs){
-			System.out.println(a.account_id);
-			idlist.add(a.account_id);
+			accountIdSet.add(a.account_id);
 		}
-		if(idlist.size() == 0){
+		
+		List<SqlRow> resultRows = executeSQL(accountIdSet);
+
+		List<MusicScore> scores = calculateScore(resultRows, accountIdSet, account);
+		Collections.sort(scores);
+		
+		ArrayList<Music> returnMusic = new ArrayList<>();
+		int idx = 0;
+		for(MusicScore ms : scores){
+			returnMusic.add(ms.music);
+			idx++;
+			if(idx >= MAX_RESULT) break;
+		}
+		
+		return returnMusic;
+	}
+	
+	
+	private List<SqlRow> executeSQL(Set<Long> accountIdSet){
+		if(accountIdSet.size() == 0){
 			return Collections.emptyList();
 		}
 	
-		StringBuilder ids = new StringBuilder();
-		Iterator<Long> ite = idlist.iterator();
-		ids.append(ite.next());
+		StringBuilder idStr = new StringBuilder();
+		Iterator<Long> ite = accountIdSet.iterator();
+		idStr.append(ite.next());
 		while(ite.hasNext()){
-			ids.append(",");
-			ids.append(ite.next());
+			idStr.append(",");
+			idStr.append(ite.next());
 		}
-		
-		String sql = "SELECT b.account_account_id, b.room_room_id, b.music_music_id, m.artist, m.title " +
-					 "FROM sung_music b, music m " +
-					 "WHERE b.music_music_id = m.music_id AND b.room_room_id in (" +
-					 	"SELECT c.room_room_id " +
-					 	"FROM sung_music c " +
-					 	"WHERE c.account_account_id in (" + ids +
-					 ")) ";
 
-		/*
-		RawSql rawSql = RawSqlBuilder
-		        .parse(sql)
-		        .create();
-		*/
-
-		HashMap<Long, MusicScore> map = new HashMap<>();
-		List<SqlRow> list = Ebean.createSqlQuery(sql).findList();
+		return  Ebean.createSqlQuery(String.format(sql, idStr.toString())).findList();
+	}		
+	
+	private Map<Long, ? extends Set<Long>> createAidToRidMap(List<SqlRow> resultRows, Set<Long> accountIdSet){
 		HashMap<Long, HashSet<Long>> aidToRid = new HashMap<>();
-		for(Long aid : idlist){
+		for(Long aid : accountIdSet){
 			aidToRid.put(aid, new HashSet<>());
 		}
 		
-		ArrayList<MusicScore> ans = new ArrayList<>();
-		for(SqlRow row : list){
-			Long mid = row.getLong("music_music_id");
+		for(SqlRow row : resultRows){
 			Long rid = row.getLong("room_room_id");
 			Long aid = row.getLong("account_account_id");
-			String artist = row.getString("artist");
-			String title = row.getString("title");
-			if(idlist.contains(aid)){
+			if(accountIdSet.contains(aid)){
 				aidToRid.get(aid).add(rid);
 			}
 		}
-			
-		for(SqlRow row : list){
+		return aidToRid;
+	}
+	
+	private List<MusicScore> calculateScore(List<SqlRow> resultRows, Set<Long> accountIdSet, Account myAccount){
+		HashMap<Long, MusicScore> midToMScore = new HashMap<>();
+		Map<Long, ? extends Set<Long>> aidToRid = createAidToRidMap(resultRows, accountIdSet);
+		
+		for(SqlRow row : resultRows){
 			Long mid = row.getLong("music_music_id");
 			Long rid = row.getLong("room_room_id");
 			Long aid = row.getLong("account_account_id");
@@ -80,40 +102,27 @@ public class SimpleRecommender implements MusicRecommender {
 			String title = row.getString("title");
 			
 			MusicScore mscore = null;
-			if(map.containsKey(mid)){
-				mscore = map.get(mid);
-		
-			}else{
-				mscore = new MusicScore(new Music(mid, artist, title), idlist.size());
-				map.put(mid, mscore);
-				ans.add(mscore);
+			if(!midToMScore.containsKey(mid)){
+				mscore = new MusicScore(new Music(mid, artist, title), accountIdSet.size());
+				midToMScore.put(mid, mscore);
 			}
+				
+			mscore = midToMScore.get(mid);
 			
-			if(aid == account.account_id){
+			if(aid == myAccount.account_id){
 				mscore.mysing++;
 			}
-			if(idlist.contains(aid)){
+			if(accountIdSet.contains(aid)){
 				mscore.singers.add(aid);
 			}
 			
-			for(Long aaid : idlist){
+			for(Long aaid : accountIdSet){
 				if(aidToRid.get(aaid).contains(rid)){
 					mscore.listeners.add(aaid);
 				}
 			}
 		}
-		Collections.sort(ans);
-		
-		ArrayList<Music> ret = new ArrayList<>();
-		int idx = 0;
-		for(MusicScore ms : ans){
-			System.out.println(ms.music.artist + " " + ms.music.title + " " + ms.getScore());
-			ret.add(ms.music);
-			idx++;
-			if(idx >= 20) break;
-		}
-		
-		return ret;
+		return new ArrayList<>(midToMScore.values());
 	}
 	
 	class MusicScore implements Comparable<MusicScore>{
@@ -131,10 +140,10 @@ public class SimpleRecommender implements MusicRecommender {
 		public double getScore(){
 			double ret = 0;
 			if(mysing >= 1){
-				ret = 0.5;
+				ret = WEIGHT_OWN;
 			}
-			ret += singers.size() * 0.3 / roomsize;
-			ret += listeners.size() * 0.2 / roomsize;
+			ret += singers.size() * WEIGHT_SUNG / roomsize;
+			ret += listeners.size() * WEIGHT_LISTEND / roomsize;
 			return ret;
 		}
 		
