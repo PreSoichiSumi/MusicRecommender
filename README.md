@@ -21,15 +21,15 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 * webAPIの仕様
 
-　 /conf/routes　を参照して下さい
-
+　 /conf/routes　を参照して下さい <br>
+<br>
 * ローカルで実行する場合
 
 　1. リポジトリをクローン
 
 　2. リポジトリ内のactivatorを実行
 
-　3. runコマンドを実行
+　3. runコマンドを実行<br>
 　
 
 * ローカルに開発環境を整えたいとき(eclipse)
@@ -40,8 +40,8 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 　3. ecliseコマンドを実行
 
-　4. リポジトリをeclipseプロジェクトとしてインポート
-
+　4. リポジトリをeclipseプロジェクトとしてインポート<br>
+<br>
 ## Authors
 
 有馬諒　（バックエンド）  
