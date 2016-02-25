@@ -1,6 +1,6 @@
 Music Recommender (team_e: ohsaka)【バックエンド】
 ====
-
+![badge](https://heroku-badge.herokuapp.com/?app=musicrecommender)<br>
 ![music recommender](https://github.com/kentx422/Resource/blob/master/img/iconBlue2.png?raw=true)
 
 カラオケで盛り下がらない曲推薦アプリ  
