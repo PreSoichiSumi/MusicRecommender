@@ -21,7 +21,7 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 * webAPIの仕様
 
- 　　　 /conf/routes　を参照して下さい
+　 /conf/routes　を参照して下さい
 
 * ローカルで実行する場合
 
