@@ -14,16 +14,17 @@ GET		/recommend						controllers.RecommendController.recommend(id: Long)
 
 #account_id:Long, music_id:Long
 
-POST	/sung_music						controllers.MusicRegister.register()
-GET		/sung_music						controllers.MusicRegister.registerGet(account_id:Long, music_id:Long)
+POST	/sung_music						controllers.MusicRegisterController.register()
+GET		/sung_music						controllers.MusicRegisterController.registerGet(account_id:Long, music_id:Long)
 
 
 #name:String
 POST	/account						controllers.AccountController.post()
 GET		/account						controllers.AccountController.get(name: String)
 
-GET		/search_music_title_ranged		controllers.MusicSearcher.searchMusicFromMusicNameRanged(music_name:String, page_length:Integer, page_number:Integer)
-GET		/search_music_artist_ranged		controllers.MusicSearcher.searchMusicFromArtistNameRanged(artist_name:String, page_length:Integer, page_number:Integer)
+
+GET		/search_music_title_ranged		controllers.MusicSearchController.searchMusicFromMusicNameRanged(music_name:String, page_length:Integer, page_number:Integer)
+GET		/search_music_artist_ranged		controllers.MusicSearchController.searchMusicFromArtistNameRanged(artist_name:String, page_length:Integer, page_number:Integer)
 
 GET		/room/in						controllers.RoomController.in(account_id:Long, room_name:String)
 GET		/room/out						controllers.RoomController.out(account_id:Long)
