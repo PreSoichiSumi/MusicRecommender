@@ -29,9 +29,6 @@ GET		/search_music_artist_ranged		controllers.MusicSearchController.searchMusicF
 GET		/room/in						controllers.RoomController.in(account_id:Long, room_name:String)
 GET		/room/out						controllers.RoomController.out(account_id:Long)
 
-GET		/searchMusicTitleRanged			controllers.MusicSearcher.searchMusicFromMusicNameRanged(musicName:String, pageLength:Integer, pageNumber:Integer)
-GET		/searchMusicArtistRanged		controllers.MusicSearcher.searchMusicFromArtistNameRanged(artistName:String, pageLength:Integer, pageNumber:Integer)
-
 GET		/create_room					controllers.RoomController.createRoom(room_name: String, user_id: Long)
 
 
