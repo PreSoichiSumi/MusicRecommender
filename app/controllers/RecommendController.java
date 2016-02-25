@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import util.recommend.MusicRecommender;
 import util.recommend.SimpleRecommender;
+import util.recommend.MockRecommender;
 
 public class RecommendController extends Controller { 
     public MusicRecommender recommender = new SimpleRecommender();

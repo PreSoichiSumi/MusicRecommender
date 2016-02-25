@@ -39,8 +39,12 @@ public class MusicRegister extends Controller {
 		if(music == null) return badRequest("Invalid music_id : " + music_id);
 		
 		
-		//現在のルームを確認する。現在ルームに属していない場合エラー
-		Room room = Room.find.byId(1l);
+		//現在のルームを確認する。現在ルームに属していない場合null
+		Room room = null;
+		if(ac.room_id != null && ac.room_id != 0l){
+			room = Room.find.byId(ac.room_id);
+		}
+		
 		SungMusic sm = new SungMusic(0l, ac, room ,music);
 		try{
 			sm.save();
