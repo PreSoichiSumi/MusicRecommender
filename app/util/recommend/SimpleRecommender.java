@@ -9,7 +9,7 @@ import models.*;
 
 /**
  * 同じルームにいる人の歌ったことのある曲・聞いたことのある曲に基づいて推薦曲を決定するRecommender
- * score = WEIGHT_OWN * a * WEIGHT_SUNG * b / c + WEIGHT_LISTEND * d / c
+ * score = WEIGHT_OWN * (a * WEIGHT_SUNG * b / c + WEIGHT_LISTEND * d / c)
  * a : 自分が歌ったことのある曲の場合1、そうでなければ0
  * b : 現在のルームの中でその曲を歌ったことのある人数
  * c : 現在のルームの人数
@@ -50,6 +50,7 @@ public class SimpleRecommender implements MusicRecommender {
 		int idx = 0;
 		for(MusicScore ms : scores){
 			returnMusic.add(ms.music);
+			System.out.println(ms.getScore());
 			idx++;
 			if(idx >= MAX_RESULT) break;
 		}

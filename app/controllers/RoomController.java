@@ -52,10 +52,13 @@ public class RoomController extends Controller{
 		if(nowroom == null){
 			return badRequest();
 		}
+
+		System.out.println(account.account_id);
 		account.room_id = nowroom.room_id;
 		account.update();
 		
-
+		System.out.println(account.name);
+		
 		if(rid != null && rid != 0L && Account.find.where().eq("room_id", rid).findRowCount() == 0){
 			//NowRoomからroomidを削除
 			NowRoom nr = NowRoom.find.where().eq("room_id", rid).findUnique();
