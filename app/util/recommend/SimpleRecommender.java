@@ -111,7 +111,7 @@ public class SimpleRecommender implements MusicRecommender {
 				
 			mscore = midToMScore.get(mid);
 			
-			if(aid == myAccount.account_id){
+			if(aid.equals(myAccount.account_id)){
 				mscore.mysing++;
 			}
 			if(accountIdSet.contains(aid)){
