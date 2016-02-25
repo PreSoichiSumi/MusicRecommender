@@ -15,7 +15,12 @@ public class RoomInOut extends Controller{
 			return badRequest();
 		}
 		
-		leaveRoom(account);
+		Long rid = account.room_id;
+		if(rid != null && rid != 0L){
+			account.room_id = null;
+			account.update();
+		}		
+		
 		
 		NowRoom nowroom = NowRoom.find.where().eq("room_name", room_name).findUnique();
 		if(nowroom == null){
@@ -23,6 +28,13 @@ public class RoomInOut extends Controller{
 		}
 		account.room_id = nowroom.room_id;
 		account.update();
+		
+
+		if(rid != null && rid != 0L && Account.find.where().eq("room_id", rid).findRowCount() == 0){
+			//NowRoomからroomidを削除
+			NowRoom.find.where().eq("room_id", rid).findUnique().delete();
+		}
+		
 		
 		return ok();
 	}
