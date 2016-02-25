@@ -70,6 +70,8 @@ public class MusicSearcher extends Controller{
 	private Music getMusic(String artist, String title){
 		List<Music> list = Music.find.where().eq("title", title).eq("artist", artist).findList();
 		if(list.size() >= 1){
+			list.get(0).artist = artist;
+			list.get(0).title = title;
 			return list.get(0);
 		}else{
 			Music music = new Music(0l, artist, title);
