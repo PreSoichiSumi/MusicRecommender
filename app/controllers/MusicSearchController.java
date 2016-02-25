@@ -1,20 +1,17 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import models.Music;
 import play.mvc.Controller;
 import play.mvc.Result;
-import util.GracenoteMetadata;
-import util.GracenoteWebAPI;
+import util.gracenote.GracenoteMetadata;
+import util.gracenote.GracenoteWebAPI;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-
-import models.Music;
 
 public class MusicSearchController extends Controller{
 	private static String clientID  = "9474304-62797A30715D3B296EFB736240C6925E"; // Put your clientID here.
@@ -66,7 +63,7 @@ public class MusicSearchController extends Controller{
     	ObjectMapper om = new ObjectMapper();
     	return om.valueToTree(res);
 	}
-	
+
 	private Music getMusic(String artist, String title){
 		List<Music> list = Music.find.where().eq("title", title).eq("artist", artist).findList();
 		if(list.size() >= 1){
@@ -78,6 +75,6 @@ public class MusicSearchController extends Controller{
 			music.save();
 			return music;
 		}
-		
+
 	}
 }
