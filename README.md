@@ -15,13 +15,13 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 * 構成
 
-Java + PlayFramework + Heroku + MySQL + GraceNoteAPI
+　　Java + PlayFramework + Heroku + MySQL + GraceNoteAPI
 
 ## Usage
 
 * webAPIの仕様
 
-  /conf/routes　を参照して下さい
+ 　　　 /conf/routes　を参照して下さい
 
 * ローカルで実行する場合
 
@@ -31,6 +31,7 @@ Java + PlayFramework + Heroku + MySQL + GraceNoteAPI
 
 　3. runコマンドを実行
 　
+
 * ローカルに開発環境を整えたいとき(eclipse)
 
 　1. リポジトリをクローン
