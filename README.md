@@ -13,25 +13,33 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 ##Equipment
 
-↓ 編集お願いします
+* 構成
 
-* Android端末
-* Android+Java
+Java + PlayFramework + Heroku + MySQL + GraceNoteAPI
 
 ## Usage
+
 * webAPIの仕様
-/conf/routes　を参照して下さい
+
+  /conf/routes　を参照して下さい
 
 * ローカルで実行する場合
-　1.リポジトリをクローン
-　2.リポジトリ内のactivatorを実行
-  3.run
 
+　1. リポジトリをクローン
+
+　2. リポジトリ内のactivatorを実行
+
+　3. run
+　
 * ローカルに開発環境を整えたいとき(eclipse)
-　1.リポジトリをクローン
-　2.リポジトリ内のactivatorを実行
-　3.eclipse
-  4.リポジトリをeclipseプロジェクトとしてインポート
+
+　1. リポジトリをクローン
+　
+　2. リポジトリ内のactivatorを実行
+
+　3. eclipse
+
+　4. リポジトリをeclipseプロジェクトとしてインポート
 
 ## Authors
 
