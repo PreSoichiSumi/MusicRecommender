@@ -26,12 +26,12 @@ GET		/search_music_title_ranged			controllers.MusicSearcher.searchMusicFromMusic
 GET		/search_music_artist_ranged			controllers.MusicSearcher.searchMusicFromArtistNameRanged(artist_name:String, page_length:Integer, page_number:Integer)
 
 GET		/room/in						controllers.RoomInOut.in(account_id:Long, room_name:String)
-GET		/room/out						controllers.RoomInOut.out(account_id:Long) 
+GET		/room/out						controllers.RoomInOut.out(account_id:Long)
 
 GET		/searchMusicTitleRanged			controllers.MusicSearcher.searchMusicFromMusicNameRanged(musicName:String, pageLength:Integer, pageNumber:Integer)
 GET		/searchMusicArtistRanged			controllers.MusicSearcher.searchMusicFromArtistNameRanged(artistName:String, pageLength:Integer, pageNumber:Integer)
 
-POST	/create_room						controllers.RoomController.createRoom(room_name: String, user_id: Long)
+GET		/create_room						controllers.RoomController.createRoom(room_name: String, user_id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path
