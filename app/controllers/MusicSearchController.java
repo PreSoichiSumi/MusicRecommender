@@ -13,10 +13,14 @@ import util.gracenote.GracenoteWebAPI;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 楽曲情報検索API用Controller
+ * @author sumi
+ */
 public class MusicSearchController extends Controller{
-	private static String clientID  = "9474304-62797A30715D3B296EFB736240C6925E"; // Put your clientID here.
-    private static String clientTag = "25991130737085962-F25002E58FCF3FB570826AC4E0100C2F"; // Put your clientTag here.
-
+	private static String clientID  = "9474304-62797A30715D3B296EFB736240C6925E"; //GracenoteAPI用アプリケーションID
+    private static String clientTag = "25991130737085962-F25002E58FCF3FB570826AC4E0100C2F";
+    //曲名から楽曲を検索ためのメソッド(曲数指定をしない場合)
     public Result searchMusicFromMusicName(String musicName) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
@@ -26,6 +30,7 @@ public class MusicSearchController extends Controller{
     		return internalServerError();
     	}
 	}
+  //曲名から楽曲を検索ためのメソッド(曲数指定をする場合)
     public Result searchMusicFromMusicNameRanged(String musicName, Integer pageLength, Integer pageNumber) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
@@ -35,7 +40,7 @@ public class MusicSearchController extends Controller{
     		return internalServerError();
     	}
 	}
-
+    //アーティスト名から楽曲を検索ためのメソッド(曲数指定をしない場合)
     public Result searchMusicFromArtistName(String artistName) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
@@ -45,6 +50,7 @@ public class MusicSearchController extends Controller{
     		return internalServerError();
     	}
     }
+    //アーティスト名から楽曲を検索ためのメソッド(曲数指定をする場合)
     public Result searchMusicFromArtistNameRanged(String artistName, Integer pageLength, Integer pageNumber) {
     	try{
 	    	GracenoteWebAPI api = new GracenoteWebAPI(clientID, clientTag);
@@ -54,7 +60,7 @@ public class MusicSearchController extends Controller{
     		return internalServerError();
     	}
 	}
-
+    //検索結果からJsonへ変換．変換時に検索結果をキャッシュする
 	private JsonNode convertResToJson(GracenoteMetadata data){
 		List<Music> res=new ArrayList<>();
     	for(Map<String, Object> o:data.getAlbums()){
@@ -63,7 +69,7 @@ public class MusicSearchController extends Controller{
     	ObjectMapper om = new ObjectMapper();
     	return om.valueToTree(res);
 	}
-
+	//楽曲情報を登録する
 	private Music getMusic(String artist, String title){
 		List<Music> list = Music.find.where().eq("title", title).eq("artist", artist).findList();
 		if(list.size() >= 1){
