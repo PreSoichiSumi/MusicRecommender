@@ -1,7 +1,7 @@
 Music Recommender (team_e: ohsaka)【バックエンド】
 ====
 ![badge](https://heroku-badge.herokuapp.com/?app=musicrecommender)<br><br>
-![music recommender](https://github.com/kentx422/Resource/blob/master/img/function.png?raw=true)  
+![music recommender](https://github.com/kentx422/Resource/blob/master/img/Intro.png?raw=true)  
 
 カラオケで空気が読めるアプリ  
 （RHD Winter Internship 2016）  
@@ -49,5 +49,5 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 前田欣耶（フロントエンド）  
 松井健人（フロントエンド）  
 
-![music recommender](https://github.com/kentx422/Resource/blob/master/img/Intro.png?raw=true) 
+![music recommender](https://github.com/kentx422/Resource/blob/master/img/function.png?raw=true) 
 ![music recommender](https://github.com/kentx422/Resource/blob/master/img/iconBlue2.png?raw=true)  
