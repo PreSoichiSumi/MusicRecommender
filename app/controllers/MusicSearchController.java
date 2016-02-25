@@ -40,6 +40,19 @@ public class MusicSearchController extends Controller{
     		return internalServerError();
     	}
 	}
+    
+    public Result searchMusicFromMusicNameRangedFast(String musicName, Integer pageLength, Integer pageNumber) {
+    		List<Music> list = Music.find.where().
+    		like("title", "%" + musicName + "%").
+    		setFirstRow(Math.max(0, (pageNumber - 1)) * pageLength).
+    		setMaxRows(pageLength).
+    		findList();
+
+        	ObjectMapper om = new ObjectMapper();
+        	JsonNode node = om.valueToTree(list);
+        	return ok(node);
+    }
+    
     //アーティスト名から楽曲を検索ためのメソッド(曲数指定をしない場合)
     public Result searchMusicFromArtistName(String artistName) {
     	try{
@@ -60,6 +73,19 @@ public class MusicSearchController extends Controller{
     		return internalServerError();
     	}
 	}
+    
+    public Result searchMusicFromArtistNameRangedFast(String artistName, Integer pageLength, Integer pageNumber) {
+		List<Music> list = Music.find.where().
+		like("artist", "%" + artistName + "%").
+		setFirstRow(Math.max(0, (pageNumber - 1)) * pageLength).
+		setMaxRows(pageLength).
+		findList();
+
+    	ObjectMapper om = new ObjectMapper();
+    	JsonNode node = om.valueToTree(list);
+    	return ok(node);
+    }
+    
     //検索結果からJsonへ変換．変換時に検索結果をキャッシュする
 	private JsonNode convertResToJson(GracenoteMetadata data){
 		List<Music> res=new ArrayList<>();

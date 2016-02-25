@@ -26,6 +26,9 @@ GET		/account						controllers.AccountController.get(name: String)
 GET		/search_music_title_ranged		controllers.MusicSearchController.searchMusicFromMusicNameRanged(music_name:String, page_length:Integer, page_number:Integer)
 GET		/search_music_artist_ranged		controllers.MusicSearchController.searchMusicFromArtistNameRanged(artist_name:String, page_length:Integer, page_number:Integer)
 
+GET		/search_music_title_ranged_fast		controllers.MusicSearchController.searchMusicFromMusicNameRangedFast(music_name:String, page_length:Integer, page_number:Integer)
+GET		/search_music_artist_ranged_fast		controllers.MusicSearchController.searchMusicFromArtistNameRangedFast(artist_name:String, page_length:Integer, page_number:Integer)
+
 GET		/room/in						controllers.RoomController.in(account_id:Long, room_name:String)
 GET		/room/out						controllers.RoomController.out(account_id:Long)
 

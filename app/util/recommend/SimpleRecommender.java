@@ -9,16 +9,16 @@ import models.*;
 
 /**
  * 同じルームにいる人の歌ったことのある曲・聞いたことのある曲に基づいて推薦曲を決定するRecommender
- * score = WEIGHT_OWN * a + WEIGHT_SUNG * b / c + WEIGHT_LISTEND * d / c
+ * score = WEIGHT_OWN * a * WEIGHT_SUNG * b / c + WEIGHT_LISTEND * d / c
  * a : 自分が歌ったことのある曲の場合1、そうでなければ0
  * b : 現在のルームの中でその曲を歌ったことのある人数
  * c : 現在のルームの人数
  * d : 現在のルームの中でその曲を聴いたことがある人数(歌った、もしくは過去のカラオケで同じルームの人が歌った)
  */
 public class SimpleRecommender implements MusicRecommender {
-	private static final double WEIGHT_SUNG = 0.3;
-	private static final double WEIGHT_LISTEND = 0.2;
-	private static final double WEIGHT_OWN = 1.0 - WEIGHT_SUNG - WEIGHT_LISTEND;
+	private static final double WEIGHT_SUNG = 0.7;
+	private static final double WEIGHT_LISTEND = 1 - WEIGHT_SUNG;
+	private static final double WEIGHT_OWN = 1.0;
 	
 	/** 推薦する曲の最大数 */
 	private static final int MAX_RESULT = 20;
@@ -142,8 +142,8 @@ public class SimpleRecommender implements MusicRecommender {
 			if(mysing >= 1){
 				ret = WEIGHT_OWN;
 			}
-			ret += singers.size() * WEIGHT_SUNG / roomsize;
-			ret += listeners.size() * WEIGHT_LISTEND / roomsize;
+			ret *= (singers.size() * WEIGHT_SUNG / roomsize) + 
+					(listeners.size() * WEIGHT_LISTEND / roomsize);
 			return ret;
 		}
 		
