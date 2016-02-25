@@ -19,11 +19,21 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 * Android+Java
 
 ## Usage
+* webAPIの仕様
+/conf/routes　を参照して下さい
 
-↓ 編集お願いします
+* ローカルで実行する場合
+　1.リポジトリをクローン
+　2.リポジトリ内のactivatorを実行
+  3.run
 
+* ローカルに開発環境を整えたいとき(eclipse)
+　1.リポジトリをクローン
+　2.リポジトリ内のactivatorを実行
+　3.eclipse
+  4.リポジトリをeclipseプロジェクトとしてインポート
 
-## Author
+## Authors
 
 有馬諒　（バックエンド）  
 鷲見創一（バックエンド）  
