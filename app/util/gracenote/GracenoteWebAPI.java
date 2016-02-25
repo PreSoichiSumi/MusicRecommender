@@ -1,4 +1,4 @@
-package util;
+package util.gracenote;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +15,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
+import util.gracenote.GracenoteException;
+import util.gracenote.GracenoteMetadata;
 
 // You will need a Gracenote Client ID to use this. Visit https://developer.gracenote.com/ for info.
 

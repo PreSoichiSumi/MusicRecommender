@@ -1,4 +1,4 @@
-package util;
+package util.gracenote;
 
 public class GracenoteException extends Exception
 {
