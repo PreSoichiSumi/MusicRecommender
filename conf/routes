@@ -14,8 +14,8 @@ GET		/recommend						controllers.RecommendController.recommend(id: Long)
 
 #account_id:Long, music_id:Long
 
-POST	/sung_music						controllers.MusicRegister.register()
-GET		/sung_music						controllers.MusicRegister.registerGet(account_id:Long, music_id:Long)
+POST	/sung_music						controllers.MusicRegisterController.register()
+GET		/sung_music						controllers.MusicRegisterController.registerGet(account_id:Long, music_id:Long)
 
 
 #name:String
