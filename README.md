@@ -29,15 +29,15 @@ Java + PlayFramework + Heroku + MySQL + GraceNoteAPI
 
 　2. リポジトリ内のactivatorを実行
 
-　3. run
+　3. runコマンドを実行
 　
 * ローカルに開発環境を整えたいとき(eclipse)
 
 　1. リポジトリをクローン
-　
+
 　2. リポジトリ内のactivatorを実行
 
-　3. eclipse
+　3. ecliseコマンドを実行
 
 　4. リポジトリをeclipseプロジェクトとしてインポート
 
