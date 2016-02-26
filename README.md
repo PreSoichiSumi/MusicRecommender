@@ -12,22 +12,10 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 むしろ盛り上がる楽曲を推薦するアプリケーション
 
 ##Equipment
-
-* 構成
-
 　　Java + PlayFramework + Heroku + MySQL + GraceNoteAPI
 
 ## Usage
 
-* webAPIの仕様
-
-　 /conf/routes　を参照して下さい <br>
-　 例：<br>
-　 # artist_name:String, page_length:Integer, page_number:Integer <br> 
-　 GET	/search_music_artist_ranged_fast	<br>
-　 →　http://musicrecommender.herokuapp.com/search_music_artist_ranged_fast?artist_name=aiko&page_length=10&page_number=0 <br>
-　 
-<br>
 * ローカルで実行する場合
 
 　1. リポジトリをクローン
@@ -47,6 +35,18 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 　4. リポジトリをeclipseプロジェクトとしてインポート<br>
 <br>
+
+* API利用例
+  
+　 全API仕様：/conf/routes　を参照して下さい <br><br>
+
+　 例：<br>
+　 # artist_name:String, page_length:Integer, page_number:Integer <br> 
+　 GET	/search_music_artist_ranged_fast	<br>
+　 →　http://musicrecommender.herokuapp.com/search_music_artist_ranged_fast?artist_name=aiko&page_length=10&page_number=0 <br>
+　 
+<br>
+
 ## Authors
 
 有馬諒　（バックエンド）  
