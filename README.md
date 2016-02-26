@@ -18,22 +18,22 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 * ローカルで実行する場合
 
-　1. リポジトリをクローン
+     1. リポジトリをクローン
 
-　2. リポジトリ内のactivatorを実行
+    2. リポジトリ内のactivatorを実行
 
-　3. runコマンドを実行<br>
+    3. runコマンドを実行<br>
 　
 
 * ローカルに開発環境を整えたいとき(eclipse)
 
-　1. リポジトリをクローン
+    1. リポジトリをクローン
 
-　2. リポジトリ内のactivatorを実行
+    2. リポジトリ内のactivatorを実行
 
-　3. ecliseコマンドを実行
+    3. ecliseコマンドを実行
 
-　4. リポジトリをeclipseプロジェクトとしてインポート<br>
+    4. リポジトリをeclipseプロジェクトとしてインポート<br>
 <br>
 
 * API利用例
