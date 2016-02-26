@@ -5,33 +5,35 @@
 # Home page
 GET     / 	                        	controllers.Application.index()
 
-#
+# music_name:String
 GET		/search_music_title				controllers.MusicSearchController.searchMusicFromMusicName(music_name:String)
+# artist_name:String
 GET		/search_music_artist			controllers.MusicSearchController.searchMusicFromArtistName(artist_name:String)
 
-
+# id:Long
 GET		/recommend						controllers.RecommendController.recommend(id: Long)
 
 #account_id:Long, music_id:Long
-
 POST	/sung_music						controllers.MusicRegisterController.register()
 GET		/sung_music						controllers.MusicRegisterController.registerGet(account_id:Long, music_id:Long)
-
 
 #name:String
 POST	/account						controllers.AccountController.post()
 GET		/account						controllers.AccountController.get(name: String)
 
-
+# music_name:String, page_length:Integer, page_number:Integer
 GET		/search_music_title_ranged		controllers.MusicSearchController.searchMusicFromMusicNameRanged(music_name:String, page_length:Integer, page_number:Integer)
-GET		/search_music_artist_ranged		controllers.MusicSearchController.searchMusicFromArtistNameRanged(artist_name:String, page_length:Integer, page_number:Integer)
-
 GET		/search_music_title_ranged_fast		controllers.MusicSearchController.searchMusicFromMusicNameRangedFast(music_name:String, page_length:Integer, page_number:Integer)
+
+# artist_name:String, page_length:Integer, page_number:Integer
+GET		/search_music_artist_ranged		controllers.MusicSearchController.searchMusicFromArtistNameRanged(artist_name:String, page_length:Integer, page_number:Integer)
 GET		/search_music_artist_ranged_fast		controllers.MusicSearchController.searchMusicFromArtistNameRangedFast(artist_name:String, page_length:Integer, page_number:Integer)
 
+# account_id:Long, room_name:String
 GET		/room/in						controllers.RoomController.in(account_id:Long, room_name:String)
-GET		/room/out						controllers.RoomController.out(account_id:Long)
 
+# account_id:Long, room_name:String
+GET		/room/out						controllers.RoomController.out(account_id:Long)
 GET		/create_room					controllers.RoomController.createRoom(room_name: String, user_id: Long)
 
 
