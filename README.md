@@ -16,27 +16,27 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 
 ## Usage
 
-* ローカルで実行する場合
+### ローカルで実行する場合
 
-     1. リポジトリをクローン
+   1. リポジトリをクローン
 
-    2. リポジトリ内のactivatorを実行
+   2. リポジトリ内のactivatorを実行
 
-    3. runコマンドを実行<br>
+   3. runコマンドを実行<br>
 　
 
-* ローカルに開発環境を整えたいとき(eclipse)
+### ローカルに開発環境を整えたいとき(eclipse)
 
-    1. リポジトリをクローン
+   1. リポジトリをクローン
 
-    2. リポジトリ内のactivatorを実行
+   2. リポジトリ内のactivatorを実行
 
-    3. ecliseコマンドを実行
+   3. ecliseコマンドを実行
 
-    4. リポジトリをeclipseプロジェクトとしてインポート<br>
+   4. リポジトリをeclipseプロジェクトとしてインポート<br>
 <br>
 
-* API利用例
+### API利用例
   
 　 全API仕様：/conf/routes　を参照して下さい <br><br>
 
