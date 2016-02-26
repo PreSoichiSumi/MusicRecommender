@@ -22,7 +22,9 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 * webAPIの仕様
 
 　 /conf/routes　を参照して下さい <br>
-　 例：GET	<br>	/search_music_artist_ranged_fast	<br>
+　 例：<br>
+　 # artist_name:String, page_length:Integer, page_number:Integer <br> 
+　 GET	/search_music_artist_ranged_fast	<br>
 　 →　http://musicrecommender.herokuapp.com/search_music_artist_ranged_fast?artist_name=aiko&page_length=10&page_number=0
 　 
 <br>
