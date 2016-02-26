@@ -25,7 +25,7 @@ Music Recommender (team_e: ohsaka)【バックエンド】
 　 例：<br>
 　 # artist_name:String, page_length:Integer, page_number:Integer <br> 
 　 GET	/search_music_artist_ranged_fast	<br>
-　 →　http://musicrecommender.herokuapp.com/search_music_artist_ranged_fast?artist_name=aiko&page_length=10&page_number=0
+　 →　http://musicrecommender.herokuapp.com/search_music_artist_ranged_fast?artist_name=aiko&page_length=10&page_number=0 <br>
 　 
 <br>
 * ローカルで実行する場合
